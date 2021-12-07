@@ -10,8 +10,9 @@ def main(filename):
         weight[point] += 1
 
     fuel = {}
-    for a in range(max(weight)):
+    for a in range(min(weight), max(weight)):
         fuel[a] = sum(
+            # (a1 + an) * n // 2, a1 = 1, an = n = |a - b|
             ((1 + (abs(a - b))) * (abs(a - b)) // 2) * v
             for b, v in weight.items()
             if a != b
