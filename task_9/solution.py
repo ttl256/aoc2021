@@ -44,24 +44,27 @@ def main(filename):
         if val < min(d[n].val for n in neighbors):
             lows[p] = v
 
-    a = defaultdict(list)
+    a = {}
     for p, v in lows.items():
         # val, neighbors = v
-        stack = [p]
+        stack = []
+        stack.append(p)
         visited = set()
+        visited.add(p)
         while len(stack) > 0:
             cp = stack.pop()
             v1, n1 = d[cp]
-            if cp in visited:
-                continue
-            visited.add(cp)
-            a[p].append((cp, v1))
+            # a[p].append((cp, v1))
             for n in n1:
+                if n in visited:
+                    continue
                 if d[n].val == 9:
                     continue
                 if d[n].val > v1:
                     stack.append(n)
-                    print(stack)
+                    visited.add(n)
+                    # print(stack)
+        a[p] = visited
     print(a)
     b = [len(v) for k, v in a.items()]
     b = sorted(b, reverse=True)
